@@ -1,0 +1,288 @@
+  {% extends 'base.html' %}
+  {% block title%}
+      Results
+  {% endblock %}
+
+  {% block content %}
+  <style>
+    table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: rgb(218, 218, 222);
+        }
+
+        .d-flex {
+        display: flex;
+        flex-wrap: wrap;
+        align-content: stretch;
+        border-radius: 10px;
+        width: fit-content;
+        margin: auto;
+    }
+
+        .custom-bg {
+      background-color: #f0f0f0; /* replace with your desired background color */
+      border-radius: 10px; /* adjust the value to control the roundness of the corners */
+      box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2); /* adjust the values to control the shadow effect */
+      margin: 10px; /* optional: add margin to provide spacing between elements */
+      padding: 10px; /* optional: add padding to provide spacing between content and borders */
+    }
+
+  </style>
+
+  </head>
+  <body>
+    <div class="p-2 flex-fill bd-highlight custom-bg">
+      <h1>Results for {{domain}}</h1>
+    </div>
+    <div class="d-flex align-content-stretch flex-wrap">
+      <div class="d-flex bd-highlight"></div>
+
+      <div class="p-2 flex-fill bd-highlight custom-bg">
+        <h2>Whois Lookup</h2>
+          {% for whois_result in whois %}
+              <output>{{ whois_result}}</output>
+          {% endfor %}
+      
+      </div>
+  
+      <div class="p-2 flex-fill bd-highlight custom-bg">
+        <h2>Subdomains</h2>
+        <ul>
+            {% for subdomain in subdomains %}
+                <li>{{ subdomain }}</li>
+            {% endfor %}
+        </ul>
+      </div>
+
+      <div class="p-2 flex-fill bd-highlight custom-bg">
+      <h2>Active Subdomains</h2>
+      <ul>
+        {% for active_subs_result in active_subs %}
+          <li>{{ active_subs_result }}</li>
+        {% endfor %}
+      </ul>
+      </div>
+
+      <div class="p-2 flex-fill bd-highlight custom-bg">
+      <h2>Subdomain Takeover</h2>
+      <ul>
+        {% for subdomain_takeover_result in subdomain_takeover %}
+          <li>{{ subdomain_takeover_result}}</li>
+        {% endfor %}
+      </ul>
+      </div>
+          
+      <div class="p-2 flex-fill bd-highlight custom-bg">
+      <h2>Zone Transfer Attack</h2>
+      <ul>
+        {% for zone_transfer_result in zone_transfer %}
+          <li>{{ zone_transfer_result }}</li>
+        {% endfor %}
+      </ul>
+      </div>
+
+      <div class="p-2 flex-fill bd-highlight custom-bg">
+      <h2>DNS Records</h2>
+      <ul>
+        {% for dns_result in dns_records %}
+          <li>{{ dns_result }}</li>
+        {% endfor %}
+      </ul>
+      </div>
+
+      <div class="p-2 flex-fill bd-highlight custom-bg">
+      <h2>TXT Records</h2>
+      <ul>
+        {% for txt_result in txt_records %}
+          <li>{{ txt_result }}</li>
+        {% endfor %}
+      </ul>
+      </div>
+
+      <div class="p-2 flex-fill bd-highlight custom-bg">
+      <h2>CNAME Records</h2>
+      <ul>
+        {% for cname_result in cname_info %}
+          <li>{{cname_result}}</li>
+        {% endfor %}
+      </ul>
+      </div>
+
+      <div class="p-2 flex-fill bd-highlight custom-bg">
+      <h2>Mail Server Records
+      </h2>
+      <ul>
+        {% for mail_result in mail_servers %}
+          <li>{{ mail_result }}</li>
+        {% endfor %}
+      </ul>
+      </div>
+
+      <div class="p-2 flex-fill bd-highlight custom-bg">
+      <h2>Email Authentication Check<h2>
+        <h3>DMARC Records:</h3>
+        <ul>
+            {% for dmarc_result in dmarc_results %}
+                <li>{{ dmarc_result }}</li>
+            {% endfor %}
+        </ul>
+        <h3>SPF Records:</h3>
+        <ul>
+            {% for spf_result in spf_results %}
+                <li>{{ spf_result }}</li>
+            {% endfor %}
+        </ul>
+      </div>
+
+      <div class="p-2 flex-fill bd-highlight custom-bg">
+      <h2>WAF Detection</h2>
+      <ul>
+        {% for waf_result in waf %}
+          <li>{{ waf_result}}</li>
+        {% endfor %}
+      </ul>
+      </div>
+
+      <div class="p-2 flex-fill bd-highlight custom-bg">
+      <h2>IPv4 Addresses</h2>
+      <ul>
+        {% for ipv4_result in ipv4_addresses %}
+          <li>{{ ipv4_result }}</li>
+        {% endfor %}
+      </ul>
+      </div>
+
+      <div class="p-2 flex-fill bd-highlight custom-bg">
+      {% if ipv6_addresses %}
+      <h2>IPv6 Addresses</h2>
+      <ul>
+        {% for ipv6_result in ipv6_addresses %}
+          <li>{{ ipv6_result }}</li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <h2>IPv6 Addresses</h2>
+      <ul>
+        <li>No IPv6 Addresses Found</li>
+      </ul>
+      {% endif%}
+      </div>
+    </div>
+
+
+    <div class="p-2 flex-fill bd-highlight custom-bg">
+      <h2>Port Scanning Results</h2>
+      <table>
+          <tr>
+              <th>IPv4 Address</th>
+              <th>Port</th>
+              <th>State</th>
+              <th>Service</th>
+              <th>Version</th>
+              <th>Product</th>
+          </tr>
+          {% for flat_result in flat_results %}
+              <tr>
+                  <td>{{ flat_result[0] }}</td>
+                  <td>{{ flat_result[1] }}</td>
+                  <td>{{ flat_result[2] }}</td>
+                  <td>{{ flat_result[3] }}</td>
+                  <td>{{ flat_result[4] }}</td>
+                  <td>{{ flat_result[5] }}</td>
+              </tr>
+          {% endfor %}
+      </table>
+      </div>
+
+      <div class="p-2 flex-fill bd-highlight custom-bg">
+      <h2>CVE Results For Services Running</h2>
+      <table>
+          <tr>
+              <th>Service</th>
+              <th>Version</th>
+              <th>CVEs</th>
+          </tr>
+          {% for cve_result in cve_results %}
+              <tr>
+                  <td>{{ cve_result[0] }}</td>
+                  <td>{{ cve_result[1] }}</td>
+                  <td>{{ cve_result[2] }}</td>
+              </tr>
+          {% endfor %}
+      </table>
+      </div>
+
+      <div class="p-2 flex-fill bd-highlight custom-bg">
+      <h2>Commmon Backups</h2>
+      <ul>
+        {% for common_backups_results in common_backups %}
+          <li>{{ common_backups_results }}</li>
+        {% endfor %}
+      </ul>
+      </div>
+
+      <div class="p-2 flex-fill bd-highlight custom-bg">
+      <h2>Possible Secrets and API Keys </h2>
+      <ul>
+        {% for find_secrets_results in find_secrets %}
+          <li>{{ find_secrets_results }}</li>
+        {% endfor %}
+      </ul>
+      </div>
+
+      <div class="p-2 flex-fill bd-highlight custom-bg">
+      <h2>Git Repositories and Public Development Informations</h2>
+      <ul>
+        {% for cloudgit_enumeration_result in cloudgit_enumeration %}
+          <li>{{ cloudgit_enumeration_result}}</li>
+        {% endfor %}
+      </ul>
+      </div>
+      </div>
+
+
+      <div class="p-2 flex-fill bd-highlight custom-bg">
+      {%if wappalyzer_version%}
+        <h1>Technologies Used</h1>
+        <table>
+            <tr>
+                <th>Technology</th>
+                <th>Version</th>
+                <th>CVEs</th>
+            </tr>
+            {% for wappalyzer_version_results in wappalyzer_version %}
+                {% for data in wappalyzer_version_results %}
+                    <tr>
+                        <td>{{ data.Technology }}</td>
+                        <td>{{ data.Version }}</td>
+                        <td>{{ data.CVE }}</td>
+                    </tr>
+                {% endfor %}
+            {% endfor %}
+        </table>
+        {%endif%}
+      </div>
+
+
+      <div class="p-2 flex-fill bd-highlight custom-bg">
+        <h2>Common Endpoints</h2>
+      <ul>
+        {% for endpoints_enumeration_results in endpoints_enumeration %}
+          <li>{{ endpoints_enumeration_results }}</li>
+        {% endfor %}
+      </ul>
+      </div>
+      </div>
+    </div>
+      </body>  
+  {% endblock %}
+

@@ -1,0 +1,8 @@
+http://api-workspace.roomietech.com
+https://login.roomietech.com
+https://dev.roomietech.com
+https://workspace.roomietech.com
+https://meeting.roomietech.com
+http://roomietech.com
+http://call.roomietech.com
+https://rs.roomietech.com

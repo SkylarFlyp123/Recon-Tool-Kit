@@ -1,0 +1,139 @@
+  {% extends 'base.html' %}
+  {% block title%}
+  RTK
+  {% endblock %}
+
+  {% block content %}
+  <style>
+    .form-group label {
+      margin-bottom: 0.5rem;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .btn-search {
+      background-color: lavender;
+      color: purple;
+      font-weight: bold;
+    }
+
+    .btn-search:hover {
+      background-color: purple;
+      color: lavender;
+    }
+
+    /* Custom CSS for input field width */
+    .input-field {
+      flex: 2;
+      margin-left: -10rem;
+      margin-right: 1rem;
+    }
+
+    /* Custom CSS for form row alignment */
+    .form-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    /* Custom CSS for search button */
+    .form-group.col-md-2.search-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: lavender;
+    }
+
+    .form-group.col-md-2.search-button button {
+      background-color: lavender;
+      border: none;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    /* Custom CSS for image position */
+    .center-container img {
+      margin-top: -450px;
+      /* Add any additional margin, padding, or other styles here */
+    }
+
+
+    /* Custom CSS for responsive design */
+    @media (max-width: 768px) {
+      .form-group.col-md-4.label-domain {
+        flex-basis: 100%;
+        margin-bottom: 1rem;
+      }
+
+      .form-group.col-md-6.input-field {
+        flex-basis: 100%;
+        margin-left: 0;
+        margin-right: 0;
+      }
+
+      .form-group.col-md-2.search-button {
+        flex-basis: 100%;
+        margin-top: 1rem;
+      }
+
+    }
+
+    .email-label,
+    .email-input {
+      display: none;
+    }
+  </style>
+
+
+  <body>
+
+    <div class="center-container">
+      <div class="col-md-6">
+        <img src="home_page_image.png" alt="Image Description">
+        <form action="{{ url_for('subdomain') }}" method="POST">
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <label for="domain">Domain </label>
+            </div>
+            <div class="form-group col-md-6 input-field">
+              <input type="text" class="form-control" name="domain" id="domain" value="" />
+            </div>
+
+
+            <div class="form-group col-md-2">
+              <button type="submit" class="btn btn-search">Search</button>
+            </div>
+
+            <div class="form-group col-md-12" style="margin-left: 50px ; margin-top: 20px;">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" onchange="toggleEmailScan(this)">
+              Scan periodically?
+            </div>
+
+            <div class="form-group col-md-4 email-label">
+              <label for="domain">Email </label>
+            </div>
+
+            <div class="form-group col-md-4 input-field email-input" style="margin-top: 100px;">
+              <input type="text" class="form-control" name="email" id="email" value="" />
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      function toggleEmailScan(e) {
+        var emailLabel = document.querySelector(".email-label");
+        var emailInput = document.querySelector(".email-input");
+        if (e.checked) {
+          emailLabel.style.display = "block";
+          emailInput.style.display = "block";
+        } else {
+          emailLabel.style.display = "none";
+          emailInput.style.display = "none";
+        }
+      }
+    </script>
+
+    {% endblock %}
