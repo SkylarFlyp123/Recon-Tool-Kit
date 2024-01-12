@@ -434,7 +434,7 @@ def wafDetector(domain):
     """
     Get WAFs list in a file
     """
-    r = requests.get("https://raw.githubusercontent.com/D3Ext/AORT/main/utils/wafsign.json")
+    r = requests.get("https://github.com/SkylarFlyp123/Recon-Tool-Kit/blob/main/utils/wafsign.json")
     f = open('wafsign.json', 'w', encoding='utf-8')  # Use utf-8 encoding
     f.write(r.text)
     f.close()
